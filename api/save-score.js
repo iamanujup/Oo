@@ -43,7 +43,7 @@ export default async function handler(req, res) {
     const db = client.db('upsssc_study');
     const collection = db.collection('scores');
 
-    // Get client IP for anti-spam (optional)
+    // Get client IP for anti-spam
     const ip = req.headers['x-forwarded-for']?.split(',')[0] || 
                req.headers['x-real-ip'] || 
                'unknown';
@@ -82,4 +82,4 @@ export default async function handler(req, res) {
       details: error.message 
     });
   }
-                        }
+}
