@@ -87,7 +87,6 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="header no-print">
   <div class="header-inner">
     <div class="logo">UPSSSC_<span>WALA</span>_Study</div>
@@ -105,7 +104,6 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg
 
 <div class="container">
 
-  <!-- START SCREEN -->
   <div class="card start-screen" id="startScreen">
     <h1 data-hi="संधि Mock Test" data-en="Sandhi Mock Test">संधि Mock Test</h1>
     <p data-hi="UPSSSC PET • UPPSC • SSC स्तर | 50 प्रश्न | पूर्ण विश्लेषण" data-en="UPSSSC PET • UPPSC • SSC Level | 50 Questions | Full Analysis">UPSSSC PET • UPPSC • SSC स्तर | 50 प्रश्न | पूर्ण विश्लेषण</p>
@@ -137,15 +135,12 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg
     </div>
   </div>
 
-  <!-- QUESTIONS AREA -->
   <div id="questionsArea" class="hidden"></div>
 
-  <!-- SUBMIT -->
   <div class="submit-area hidden" id="submitArea">
     <button class="btn btn-submit" onclick="confirmSubmit()" data-hi="टेस्ट जमा करें एवं परिणाम देखें" data-en="Submit Test & Show Results">टेस्ट जमा करें एवं परिणाम देखें</button>
   </div>
 
-  <!-- RESULT SCREEN -->
   <div class="result-screen" id="resultScreen">
     <div class="card">
       <div class="result-header">
@@ -190,14 +185,12 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg
 
 </div>
 
-<!-- FOOTER -->
 <div class="footer no-print">
   <p><strong>UPSSSC_WALA_Study</strong> | Prepared by <strong>Vishal Pandey</strong></p>
   <p>Telegram: <a href="https://t.me/UPSSSC_WALA_Study" target="_blank">https://t.me/UPSSSC_WALA_Study</a></p>
   <p style="margin-top:6px;font-size:.8rem">© 2026 | All Rights Reserved</p>
 </div>
 
-<!-- CONFIRM POPUP -->
 <div class="popup hidden" id="confirmPopup">
   <div class="popup-box">
     <h3 data-hi="क्या आप सुनिश्चित हैं?" data-en="Are you sure?">क्या आप सुनिश्चित हैं?</h3>
@@ -209,7 +202,6 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg
   </div>
 </div>
 
-<!-- LEADERBOARD MODAL -->
 <div class="popup hidden" id="leaderboardPopup" style="z-index:300">
   <div class="popup-box" style="max-width:800px;max-height:90vh;overflow-y:auto;text-align:left">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
@@ -260,17 +252,15 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg
   </div>
 </div>
 
-<!-- PRINT AREA (hidden) -->
 <div class="print-area print-only" id="printArea"></div>
 
 <script>
-/* ===================== RAW DATA ===================== */
+/* ===================== RAW DATA (50 Questions) ===================== */
 const rawData = [
   {id:1, cat:1, catName:{hi:"दीर्घ संधि",en:"Dirgha Sandhi"},
    q:{hi:"'विद्यालय' का सही संधि-विच्छेद है:", en:"The correct Sandhi-Vichchhed of 'Vidyalaya' is:"},
    options:[{hi:"विद्या + आलय",en:"Vidya + Alaya"},{hi:"विद् + आलय",en:"Vid + Alaya"},{hi:"विद्या + लय",en:"Vidya + Laya"},{hi:"विद + यालय",en:"Vid + Yalaya"}],
-   ans:0,
-   exp:{hi:"विद्या + आलय = विद्यालय। यहाँ आ + आ = आ (दीर्घ संधि) हुई है।",en:"Vidya + Alaya = Vidyalaya. आ + आ = आ (Dirgha Sandhi)."}},
+   ans:0, exp:{hi:"विद्या + आलय = विद्यालय। आ + आ = आ (दीर्घ संधि)।",en:"Vidya + Alaya = Vidyalaya. आ + आ = आ (Dirgha Sandhi)."}},
   {id:2, cat:1, catName:{hi:"दीर्घ संधि",en:"Dirgha Sandhi"},
    q:{hi:"'सूर्यास्त' में कौन-सी संधि है?", en:"Which Sandhi is there in 'Suryasta'?"},
    options:[{hi:"गुण संधि",en:"Guna Sandhi"},{hi:"दीर्घ संधि",en:"Dirgha Sandhi"},{hi:"यण संधि",en:"Yan Sandhi"},{hi:"वृद्धि संधि",en:"Vriddhi Sandhi"}],
@@ -645,7 +635,6 @@ function submitTest(){
   });
   document.getElementById('perfBody').innerHTML = tbody;
   
-  // ✅ SAVE TO LEADERBOARD
   saveScoreToDB({
     name: candidateName,
     score: score,
@@ -696,6 +685,11 @@ async function loadLeaderboard() {
 
   try {
     const res = await fetch(`/api/leaderboard?category=${cat}&period=${period}&limit=100`);
+    
+    if (!res.ok) {
+      throw new Error(`Server returned ${res.status}. API route not found.`);
+    }
+    
     const data = await res.json();
 
     if (!data.success) throw new Error(data.error || 'Failed');
@@ -738,7 +732,7 @@ function showToast(msg) {
   setTimeout(() => toast.remove(), 3500);
 }
 
-/* ===================== PDF DOWNLOAD ===================== */
+/* ===================== PDF ===================== */
 function downloadPDF(){
   let html = `
     <html><head><meta charset="UTF-8"><title>Sandhi Mock Test - UPSSSC_WALA_Study</title>
@@ -799,13 +793,11 @@ function downloadPDF(){
   setTimeout(()=>{ win.print(); }, 500);
 }
 
-// Close leaderboard on outside click
 document.getElementById('leaderboardPopup')?.addEventListener('click', (e) => {
   if (e.target.id === 'leaderboardPopup') closeLeaderboard();
 });
 
-// Init
 updateAllTexts();
 </script>
 </body>
-</html>
+  </html>
