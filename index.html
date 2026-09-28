@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UPSSSC_WALA_Study | संधि Mock Test</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#1a56db;--success:#059669;--danger:#dc2626;--mastery:#7c3aed;--bg:#f1f5f9;--card:#ffffff;--text:#1e293b;--muted:#64748b}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.header{background:linear-gradient(135deg,#1e40af,#1a56db);color:#fff;padding:12px 16px;position:sticky;top:0;z-index:100;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.logo{font-size:1.35rem;font-weight:700;letter-spacing:.5px}
+.logo span{color:#93c5fd}
+.lang-btn{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);color:#fff;padding:6px 14px;border-radius:20px;cursor:pointer;font-size:.9rem;transition:.2s}
+.lang-btn:hover{background:rgba(255,255,255,.3)}
+.tracker{display:flex;gap:12px;flex-wrap:wrap;font-size:.85rem}
+.tracker span{background:rgba(255,255,255,.15);padding:4px 10px;border-radius:12px}
+.container{max-width:900px;margin:0 auto;padding:20px 16px}
+.card{background:var(--card);border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.08);padding:24px;margin-bottom:20px;transition:.25s}
+.card:hover{box-shadow:0 8px 28px rgba(0,0,0,.12);transform:translateY(-2px)}
+.start-screen h1{font-size:1.8rem;color:var(--primary);margin-bottom:8px;text-align:center}
+.start-screen p{text-align:center;color:var(--muted);margin-bottom:24px}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-weight:600;margin-bottom:6px;font-size:.95rem}
+.form-group input,.form-group select{width:100%;padding:12px 14px;border:2px solid #e2e8f0;border-radius:10px;font-size:1rem;transition:.2s}
+.form-group input:focus,.form-group select:focus{outline:none;border-color:var(--primary)}
+.btn{display:inline-block;padding:14px 28px;border:none;border-radius:12px;font-size:1.05rem;font-weight:600;cursor:pointer;transition:.25s;text-align:center}
+.btn-primary{background:var(--primary);color:#fff;width:100%;margin-top:10px}
+.btn-primary:hover{background:#1e40af;transform:translateY(-1px)}
+.btn-success{background:var(--success);color:#fff}
+.btn-danger{background:var(--danger);color:#fff}
+.question-card{border-left:5px solid var(--primary)}
+.q-num{font-size:.85rem;color:var(--muted);margin-bottom:6px}
+.q-text{font-size:1.1rem;font-weight:600;margin-bottom:16px;line-height:1.5}
+.options{display:flex;flex-direction:column;gap:10px}
+.option{padding:12px 16px;border:2px solid #e2e8f0;border-radius:10px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:10px}
+.option:hover{border-color:var(--primary);background:#eff6ff}
+.option.selected{border-color:var(--primary);background:#dbeafe}
+.option.correct{border-color:var(--success);background:#d1fae5;color:#065f46}
+.option.wrong{border-color:var(--danger);background:#fee2e2;color:#991b1b}
+.option.disabled{pointer-events:none}
+.explanation{margin-top:16px;padding:14px;background:#f0fdf4;border-radius:10px;border-left:4px solid var(--success);font-size:.95rem;display:none}
+.explanation.show{display:block}
+.submit-area{text-align:center;margin:30px 0}
+.btn-submit{background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff;padding:16px 40px;font-size:1.15rem}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(124,58,237,.4)}
+.result-screen{display:none}
+.result-header{text-align:center;margin-bottom:24px}
+.score-circle{width:140px;height:140px;border-radius:50%;background:linear-gradient(135deg,#1a56db,#7c3aed);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 20px;font-size:2rem;font-weight:700;box-shadow:0 8px 25px rgba(26,86,219,.3)}
+.score-circle small{font-size:.9rem;font-weight:400}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:24px}
+.stat-box{background:#f8fafc;padding:14px;border-radius:12px;text-align:center}
+.stat-box .num{font-size:1.5rem;font-weight:700;color:var(--primary)}
+.stat-box .label{font-size:.8rem;color:var(--muted)}
+.perf-table{width:100%;border-collapse:collapse;margin-top:20px;font-size:.9rem}
+.perf-table th,.perf-table td{padding:12px 10px;text-align:left;border-bottom:1px solid #e2e8f0}
+.perf-table th{background:#1e40af;color:#fff}
+.perf-table tr:nth-child(even){background:#f8fafc}
+.status-mastery{color:var(--mastery);font-weight:700}
+.status-excellent{color:var(--success);font-weight:700}
+.status-good{color:#2563eb;font-weight:700}
+.status-average{color:#d97706;font-weight:700}
+.status-needs{color:var(--danger);font-weight:700}
+.footer{text-align:center;padding:24px 16px;color:var(--muted);font-size:.85rem;border-top:1px solid #e2e8f0;margin-top:40px}
+.footer a{color:var(--primary);text-decoration:none;font-weight:600}
+.hidden{display:none!important}
+.popup{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:200;padding:20px}
+.popup-box{background:#fff;border-radius:16px;padding:28px;max-width:400px;width:100%;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.2)}
+.popup-box h3{margin-bottom:12px;color:var(--primary)}
+.popup-btns{display:flex;gap:12px;justify-content:center;margin-top:20px}
+.popup-btns .btn{flex:1}
+@keyframes slideUp{from{transform:translate(-50%,20px);opacity:0}to{transform:translate(-50%,0);opacity:1}}
+@media(max-width:600px){
+  .tracker{font-size:.75rem;gap:6px}
+  .q-text{font-size:1rem}
+  .header-inner{flex-direction:column;align-items:flex-start}
+}
+.print-only{display:none}
+@media print{
+  body *{visibility:hidden}
+  .print-area,.print-area *{visibility:visible}
+  .print-area{position:absolute;left:0;top:0;width:100%}
+  .no-print{display:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header no-print">
+  <div class="header-inner">
+    <div class="logo">UPSSSC_<span>WALA</span>_Study</div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <button class="lang-btn" id="langBtn" onclick="toggleLang()">English</button>
+      <div class="tracker" id="liveTracker" style="display:none">
+        <span id="tAttempted">Attempted: 0</span>
+        <span id="tRight">Right: 0</span>
+        <span id="tWrong">Wrong: 0</span>
+        <span id="tScore">Score: 0</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- START SCREEN -->
+  <div class="card start-screen" id="startScreen">
+    <h1 data-hi="संधि Mock Test" data-en="Sandhi Mock Test">संधि Mock Test</h1>
+    <p data-hi="UPSSSC PET • UPPSC • SSC स्तर | 50 प्रश्न | पूर्ण विश्लेषण" data-en="UPSSSC PET • UPPSC • SSC Level | 50 Questions | Full Analysis">UPSSSC PET • UPPSC • SSC स्तर | 50 प्रश्न | पूर्ण विश्लेषण</p>
+    
+    <div class="form-group">
+      <label data-hi="अभ्यर्थी का नाम" data-en="Candidate Name">अभ्यर्थी का नाम</label>
+      <input type="text" id="candidateName" placeholder="अपना नाम लिखें / Enter your name" value="">
+    </div>
+    
+    <div class="form-group">
+      <label data-hi="श्रेणी चुनें" data-en="Select Category">श्रेणी चुनें</label>
+      <select id="categorySelect">
+        <option value="all" data-hi="पूर्ण टेस्ट (सभी 50 प्रश्न)" data-en="Full Test (All 50 Questions)">पूर्ण टेस्ट (सभी 50 प्रश्न)</option>
+        <option value="1" data-hi="दीर्घ संधि" data-en="Dirgha Sandhi">दीर्घ संधि</option>
+        <option value="2" data-hi="गुण संधि" data-en="Guna Sandhi">गुण संधि</option>
+        <option value="3" data-hi="वृद्धि संधि" data-en="Vriddhi Sandhi">वृद्धि संधि</option>
+        <option value="4" data-hi="यण संधि" data-en="Yan Sandhi">यण संधि</option>
+        <option value="5" data-hi="अयादि संधि" data-en="Ayadi Sandhi">अयादि संधि</option>
+        <option value="6" data-hi="व्यंजन संधि" data-en="Vyanjan Sandhi">व्यंजन संधि</option>
+        <option value="7" data-hi="विसर्ग संधि" data-en="Visarg Sandhi">विसर्ग संधि</option>
+      </select>
+    </div>
+    
+    <button class="btn btn-primary" onclick="startTest()" data-hi="टेस्ट शुरू करें" data-en="Start Test">टेस्ट शुरू करें</button>
+    <button class="btn btn-success" onclick="showLeaderboard()" style="margin-top:10px" data-hi="🏆 लीडरबोर्ड देखें" data-en="🏆 View Leaderboard">🏆 लीडरबोर्ड देखें</button>
+    
+    <div style="margin-top:24px;text-align:center;font-size:.9rem;color:var(--muted)">
+      <p data-hi="नियम: सही = +1 | गलत = –0.25 | केवल एक बार उत्तर चुन सकते हैं" data-en="Rules: Correct = +1 | Wrong = –0.25 | Answer only once">नियम: सही = +1 | गलत = –0.25 | केवल एक बार उत्तर चुन सकते हैं</p>
+    </div>
+  </div>
+
+  <!-- QUESTIONS AREA -->
+  <div id="questionsArea" class="hidden"></div>
+
+  <!-- SUBMIT -->
+  <div class="submit-area hidden" id="submitArea">
+    <button class="btn btn-submit" onclick="confirmSubmit()" data-hi="टेस्ट जमा करें एवं परिणाम देखें" data-en="Submit Test & Show Results">टेस्ट जमा करें एवं परिणाम देखें</button>
+  </div>
+
+  <!-- RESULT SCREEN -->
+  <div class="result-screen" id="resultScreen">
+    <div class="card">
+      <div class="result-header">
+        <div class="score-circle">
+          <span id="finalScore">0</span>
+          <small data-hi="अंक" data-en="Score">अंक</small>
+        </div>
+        <h2 id="resultName"></h2>
+        <p id="resultSummary" style="color:var(--muted)"></p>
+      </div>
+      
+      <div class="stats">
+        <div class="stat-box"><div class="num" id="rTotal">50</div><div class="label" data-hi="कुल प्रश्न" data-en="Total Qs">कुल प्रश्न</div></div>
+        <div class="stat-box"><div class="num" style="color:var(--success)" id="rRight">0</div><div class="label" data-hi="सही" data-en="Right">सही</div></div>
+        <div class="stat-box"><div class="num" style="color:var(--danger)" id="rWrong">0</div><div class="label" data-hi="गलत" data-en="Wrong">गलत</div></div>
+        <div class="stat-box"><div class="num" id="rPercent">0%</div><div class="label" data-hi="प्रतिशत" data-en="Percentage">प्रतिशत</div></div>
+      </div>
+      
+      <h3 style="margin:20px 0 12px;color:var(--primary)" data-hi="श्रेणीवार प्रदर्शन" data-en="Category-wise Performance">श्रेणीवार प्रदर्शन</h3>
+      <div style="overflow-x:auto">
+        <table class="perf-table" id="perfTable">
+          <thead>
+            <tr>
+              <th data-hi="श्रेणी" data-en="Category">श्रेणी</th>
+              <th data-hi="कुल" data-en="Total">कुल</th>
+              <th data-hi="सही" data-en="Right">सही</th>
+              <th data-hi="गलत" data-en="Wrong">गलत</th>
+              <th data-hi="स्थिति" data-en="Status">स्थिति</th>
+            </tr>
+          </thead>
+          <tbody id="perfBody"></tbody>
+        </table>
+      </div>
+      
+      <div style="text-align:center;margin-top:28px;display:flex;flex-wrap:wrap;gap:12px;justify-content:center">
+        <button class="btn btn-success" onclick="downloadPDF()" data-hi="📄 PDF डाउनलोड" data-en="📄 Download PDF">📄 PDF डाउनलोड</button>
+        <button class="btn btn-primary" onclick="showLeaderboard()" data-hi="🏆 लीडरबोर्ड देखें" data-en="🏆 View Leaderboard">🏆 लीडरबोर्ड देखें</button>
+        <button class="btn btn-primary" onclick="location.reload()" data-hi="फिर से टेस्ट दें" data-en="Retake Test">फिर से टेस्ट दें</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer no-print">
+  <p><strong>UPSSSC_WALA_Study</strong> | Prepared by <strong>Vishal Pandey</strong></p>
+  <p>Telegram: <a href="https://t.me/UPSSSC_WALA_Study" target="_blank">https://t.me/UPSSSC_WALA_Study</a></p>
+  <p style="margin-top:6px;font-size:.8rem">© 2026 | All Rights Reserved</p>
+</div>
+
+<!-- CONFIRM POPUP -->
+<div class="popup hidden" id="confirmPopup">
+  <div class="popup-box">
+    <h3 data-hi="क्या आप सुनिश्चित हैं?" data-en="Are you sure?">क्या आप सुनिश्चित हैं?</h3>
+    <p id="confirmMsg" data-hi="कुछ प्रश्न अभी तक हल नहीं हुए हैं। फिर भी जमा करें?" data-en="Some questions are still unattempted. Submit anyway?">कुछ प्रश्न अभी तक हल नहीं हुए हैं। फिर भी जमा करें?</p>
+    <div class="popup-btns">
+      <button class="btn btn-danger" onclick="closePopup()" data-hi="वापस जाएँ" data-en="Go Back">वापस जाएँ</button>
+      <button class="btn btn-success" onclick="submitTest()" data-hi="हाँ, जमा करें" data-en="Yes, Submit">हाँ, जमा करें</button>
+    </div>
+  </div>
+</div>
+
+<!-- LEADERBOARD MODAL -->
+<div class="popup hidden" id="leaderboardPopup" style="z-index:300">
+  <div class="popup-box" style="max-width:800px;max-height:90vh;overflow-y:auto;text-align:left">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <h3 style="color:var(--primary);margin:0">🏆 लीडरबोर्ड / Leaderboard</h3>
+      <button onclick="closeLeaderboard()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--muted)">✕</button>
+    </div>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+      <select id="lbCategory" onchange="loadLeaderboard()" style="flex:1;padding:8px;border-radius:8px;border:2px solid #e2e8f0;min-width:140px">
+        <option value="all">सभी श्रेणी / All Categories</option>
+        <option value="1">दीर्घ संधि</option>
+        <option value="2">गुण संधि</option>
+        <option value="3">वृद्धि संधि</option>
+        <option value="4">यण संधि</option>
+        <option value="5">अयादि संधि</option>
+        <option value="6">व्यंजन संधि</option>
+        <option value="7">विसर्ग संधि</option>
+      </select>
+      <select id="lbPeriod" onchange="loadLeaderboard()" style="flex:1;padding:8px;border-radius:8px;border:2px solid #e2e8f0;min-width:140px">
+        <option value="all">सभी समय / All Time</option>
+        <option value="today">आज / Today</option>
+        <option value="week">इस हफ्ते / This Week</option>
+        <option value="month">इस महीने / This Month</option>
+      </select>
+      <button class="btn btn-primary" onclick="loadLeaderboard()" style="padding:8px 16px;font-size:.9rem;width:auto;margin:0">🔄 Refresh</button>
+    </div>
+
+    <div id="lbStats" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px"></div>
+
+    <div style="overflow-x:auto">
+      <table class="perf-table" style="font-size:.85rem">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Score</th>
+            <th>✓</th>
+            <th>✗</th>
+            <th>%</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="lbBody">
+          <tr><td colspan="7" style="text-align:center;padding:20px">⏳ Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- PRINT AREA (hidden) -->
+<div class="print-area print-only" id="printArea"></div>
+
+<script>
+/* ===================== RAW DATA ===================== */
+const rawData = [
+  {id:1, cat:1, catName:{hi:"दीर्घ संधि",en:"Dirgha Sandhi"},
+   q:{hi:"'विद्यालय' का सही संधि-विच्छेद है:", en:"The correct Sandhi-Vichchhed of 'Vidyalaya' is:"},
+   options:[{hi:"विद्या + आलय",en:"Vidya + Alaya"},{hi:"विद् + आलय",en:"Vid + Alaya"},{hi:"विद्या + लय",en:"Vidya + Laya"},{hi:"विद + यालय",en:"Vid + Yalaya"}],
+   ans:0,
+   exp:{hi:"विद्या + आलय = विद्यालय। यहाँ आ + आ = आ (दीर्घ संधि) हुई है।",en:"Vidya + Alaya = Vidyalaya. आ + आ = आ (Dirgha Sandhi)."}},
+  {id:2, cat:1, catName:{hi:"दीर्घ संधि",en:"Dirgha Sandhi"},
+   q:{hi:"'सूर्यास्त' में कौन-सी संधि है?", en:"Which Sandhi is there in 'Suryasta'?"},
+   options:[{hi:"गुण संधि",en:"Guna Sandhi"},{hi:"दीर्घ संधि",en:"Dirgha Sandhi"},{hi:"यण संधि",en:"Yan Sandhi"},{hi:"वृद्धि संधि",en:"Vriddhi Sandhi"}],
+   ans:1, exp:{hi:"सूर्य + अस्त = सूर्यास्त। अ + अ = आ → दीर्घ संधि।",en:"Surya + Asta = Suryasta. अ + अ = आ → Dirgha Sandhi."}},
+  {id:3, cat:1, catName:{hi:"दीर्घ संधि",en:"Dirgha Sandhi"},
+   q:{hi:"'कवीश्वर' का संधि-विच्छेद है:", en:"Sandhi-Vichchhed of 'Kavishwar' is:"},
+   options:[{hi:"कवि + ईश्वर",en:"Kavi + Ishwar"},{hi:"कवी + श्वर",en:"Kavi + Shwar"},{hi:"कव + ईश्वर",en:"Kav + Ishwar"},{hi:"कवि + श्वर",en:"Kavi + Shwar"}],
+   ans:0, exp:{hi:"कवि + ईश्वर = कवीश्वर। इ + ई = ई (दीर्घ संधि)।",en:"Kavi + Ishwar = Kavishwar. इ + ई = ई (Dirgha Sandhi)."}},
+  {id:4, cat:1, catName:{hi:"दीर्घ संधि",en:"Dirgha Sandhi"},
+   q:{hi:"निम्नलिखित में दीर्घ संधि का उदाहरण है:", en:"Which of the following is an example of Dirgha Sandhi?"},
+   options:[{hi:"परोपकार",en:"Paropkar"},{hi:"देवेन्द्र",en:"Devendra"},{hi:"रामावतार",en:"Ramavatar"},{hi:"नरेन्द्र",en:"Narendra"}],
+   ans:2, exp:{hi:"राम + अवतार = रामावतार। अ + अ = आ → दीर्घ संधि।",en:"Ram + Avatar = Ramavatar. अ + अ = आ → Dirgha Sandhi."}},
+  {id:5, cat:1, catName:{hi:"दीर्घ संधि",en:"Dirgha Sandhi"},
+   q:{hi:"'महानंद' का सही संधि-विच्छेद है:", en:"Correct Sandhi-Vichchhed of 'Mahanand' is:"},
+   options:[{hi:"महा + आनंद",en:"Maha + Anand"},{hi:"मह + आनंद",en:"Mah + Anand"},{hi:"महा + नंद",en:"Maha + Nand"},{hi:"महान + द",en:"Mahan + D"}],
+   ans:0, exp:{hi:"महा + आनंद = महानंद। आ + आ = आ (दीर्घ संधि)।",en:"Maha + Anand = Mahanand. आ + आ = आ (Dirgha Sandhi)."}},
+  {id:6, cat:1, catName:{hi:"दीर्घ संधि",en:"Dirgha Sandhi"},
+   q:{hi:"'वधूत्सव' में संधि है:", en:"Sandhi in 'Vadhutsav' is:"},
+   options:[{hi:"गुण",en:"Guna"},{hi:"दीर्घ",en:"Dirgha"},{hi:"यण",en:"Yan"},{hi:"वृद्धि",en:"Vriddhi"}],
+   ans:1, exp:{hi:"वधु + उत्सव = वधूत्सव। उ + उ = ऊ → दीर्घ संधि।",en:"Vadhu + Utsav = Vadhutsav. उ + उ = ऊ → Dirgha Sandhi."}},
+  {id:7, cat:1, catName:{hi:"दीर्घ संधि",en:"Dirgha Sandhi"},
+   q:{hi:"'मतानुसार' का संधि-विच्छेद है:", en:"Sandhi-Vichchhed of 'Matanusar' is:"},
+   options:[{hi:"मत + अनुसार",en:"Mat + Anusar"},{hi:"मता + नुसार",en:"Mata + Nusar"},{hi:"मत + नुसार",en:"Mat + Nusar"},{hi:"मत् + अनुसार",en:"Mat + Anusar"}],
+   ans:0, exp:{hi:"मत + अनुसार = मतानुसार। अ + अ = आ (दीर्घ संधि)।",en:"Mat + Anusar = Matanusar. अ + अ = आ (Dirgha Sandhi)."}},
+  {id:8, cat:1, catName:{hi:"दीर्घ संधि",en:"Dirgha Sandhi"},
+   q:{hi:"दीर्घ संधि का नियम है:", en:"The rule of Dirgha Sandhi is:"},
+   options:[{hi:"अ/आ + इ/ई = ए",en:"अ/आ + इ/ई = ए"},{hi:"अ/आ + अ/आ = आ",en:"अ/आ + अ/आ = आ"},{hi:"अ/आ + उ/ऊ = ओ",en:"अ/आ + उ/ऊ = ओ"},{hi:"इ/ई + अ = य",en:"इ/ई + अ = य"}],
+   ans:1, exp:{hi:"समान स्वर मिलने पर दीर्घ स्वर बनता है।",en:"Similar vowels form long vowel."}},
+  {id:9, cat:2, catName:{hi:"गुण संधि",en:"Guna Sandhi"},
+   q:{hi:"'देवेन्द्र' का सही संधि-विच्छेद है:", en:"Correct Sandhi-Vichchhed of 'Devendra' is:"},
+   options:[{hi:"देव + इन्द्र",en:"Dev + Indra"},{hi:"देवे + न्द्र",en:"Deve + Ndra"},{hi:"देव + एन्द्र",en:"Dev + Endra"},{hi:"दे + वेन्द्र",en:"De + Vendra"}],
+   ans:0, exp:{hi:"देव + इन्द्र = देवेन्द्र। अ + इ = ए (गुण संधि)।",en:"Dev + Indra = Devendra. अ + इ = ए (Guna Sandhi)."}},
+  {id:10, cat:2, catName:{hi:"गुण संधि",en:"Guna Sandhi"},
+   q:{hi:"'सूर्योदय' में कौन-सी संधि है?", en:"Which Sandhi is in 'Suryoday'?"},
+   options:[{hi:"दीर्घ",en:"Dirgha"},{hi:"गुण",en:"Guna"},{hi:"वृद्धि",en:"Vriddhi"},{hi:"यण",en:"Yan"}],
+   ans:1, exp:{hi:"सूर्य + उदय = सूर्योदय। अ + उ = ओ → गुण संधि।",en:"Surya + Uday = Suryoday. अ + उ = ओ → Guna Sandhi."}},
+  {id:11, cat:2, catName:{hi:"गुण संधि",en:"Guna Sandhi"},
+   q:{hi:"'महार्षि' का संधि-विच्छेद है:", en:"Sandhi-Vichchhed of 'Maharshi' is:"},
+   options:[{hi:"महा + ऋषि",en:"Maha + Rishi"},{hi:"मह + ऋषि",en:"Mah + Rishi"},{hi:"महा + र्षि",en:"Maha + Rshi"},{hi:"महार + षि",en:"Mahar + Shi"}],
+   ans:0, exp:{hi:"महा + ऋषि = महार्षि। आ + ऋ = अर् (गुण संधि)।",en:"Maha + Rishi = Maharshi. आ + ऋ = अर् (Guna Sandhi)."}},
+  {id:12, cat:2, catName:{hi:"गुण संधि",en:"Guna Sandhi"},
+   q:{hi:"'लोकोपकार' में संधि है:", en:"Sandhi in 'Lokopkar' is:"},
+   options:[{hi:"दीर्घ",en:"Dirgha"},{hi:"गुण",en:"Guna"},{hi:"यण",en:"Yan"},{hi:"विसर्ग",en:"Visarg"}],
+   ans:1, exp:{hi:"लोक + उपकार = लोकोपकार। अ + उ = ओ → गुण संधि।",en:"Lok + Upkar = Lokopkar. अ + उ = ओ → Guna Sandhi."}},
+  {id:13, cat:2, catName:{hi:"गुण संधि",en:"Guna Sandhi"},
+   q:{hi:"'नरेश' का सही संधि-विच्छेद है:", en:"Correct Sandhi-Vichchhed of 'Naresh' is:"},
+   options:[{hi:"नर + ईश",en:"Nar + Ish"},{hi:"नरे + श",en:"Nare + Sh"},{hi:"न + रेश",en:"Na + Resh"},{hi:"नर + एश",en:"Nar + Esh"}],
+   ans:0, exp:{hi:"नर + ईश = नरेश। अ + ई = ए (गुण संधि)।",en:"Nar + Ish = Naresh. अ + ई = ए (Guna Sandhi)."}},
+  {id:14, cat:2, catName:{hi:"गुण संधि",en:"Guna Sandhi"},
+   q:{hi:"गुण संधि का नियम है:", en:"Rule of Guna Sandhi is:"},
+   options:[{hi:"अ/आ + अ/आ = आ",en:"अ/आ + अ/आ = आ"},{hi:"अ/आ + इ/ई = ए",en:"अ/आ + इ/ई = ए"},{hi:"इ/ई + अ = य",en:"इ/ई + अ = य"},{hi:"ए + अ = अय",en:"ए + अ = अय"}],
+   ans:1, exp:{hi:"अ/आ + इ/ई = ए, अ/आ + उ/ऊ = ओ, अ/आ + ऋ = अर् → गुण संधि।",en:"अ/आ + इ/ई = ए, अ/आ + उ/ऊ = ओ → Guna Sandhi."}},
+  {id:15, cat:2, catName:{hi:"गुण संधि",en:"Guna Sandhi"},
+   q:{hi:"'महोत्सव' का संधि-विच्छेद है:", en:"Sandhi-Vichchhed of 'Mahotsav' is:"},
+   options:[{hi:"महा + उत्सव",en:"Maha + Utsav"},{hi:"मह + उत्सव",en:"Mah + Utsav"},{hi:"महो + त्सव",en:"Maho + Tsav"},{hi:"महात् + सव",en:"Mahat + Sav"}],
+   ans:0, exp:{hi:"महा + उत्सव = महोत्सव। आ + उ = ओ (गुण संधि)।",en:"Maha + Utsav = Mahotsav. आ + उ = ओ (Guna Sandhi)."}},
+  {id:16, cat:2, catName:{hi:"गुण संधि",en:"Guna Sandhi"},
+   q:{hi:"'धरेश' का सही संधि-विच्छेद है:", en:"Correct Sandhi-Vichchhed of 'Dharesh' is:"},
+   options:[{hi:"धरा + ईश",en:"Dhara + Ish"},{hi:"धर + ईश",en:"Dhar + Ish"},{hi:"धरा + इश",en:"Dhara + Ish"},{hi:"धरेश + अ",en:"Dharesh + A"}],
+   ans:0, exp:{hi:"धरा + ईश = धरेश। आ + ई = ए (गुण संधि)।",en:"Dhara + Ish = Dharesh. आ + ई = ए (Guna Sandhi)."}},
+  {id:17, cat:3, catName:{hi:"वृद्धि संधि",en:"Vriddhi Sandhi"},
+   q:{hi:"'एकैक' का संधि-विच्छेद है:", en:"Sandhi-Vichchhed of 'Ekaik' is:"},
+   options:[{hi:"एक + एक",en:"Ek + Ek"},{hi:"एका + एक",en:"Eka + Ek"},{hi:"एकै + क",en:"Ekai + K"},{hi:"ए + कैक",en:"E + Kaik"}],
+   ans:0, exp:{hi:"एक + एक = एकैक। अ + ए = ऐ (वृद्धि संधि)।",en:"Ek + Ek = Ekaik. अ + ए = ऐ (Vriddhi Sandhi)."}},
+  {id:18, cat:3, catName:{hi:"वृद्धि संधि",en:"Vriddhi Sandhi"},
+   q:{hi:"'महौषधि' में कौन-सी संधि है?", en:"Which Sandhi is in 'Mahaushadhi'?"},
+   options:[{hi:"गुण",en:"Guna"},{hi:"दीर्घ",en:"Dirgha"},{hi:"वृद्धि",en:"Vriddhi"},{hi:"यण",en:"Yan"}],
+   ans:2, exp:{hi:"महा + औषधि = महौषधि। आ + औ = औ → वृद्धि संधि।",en:"Maha + Aushadhi = Mahaushadhi. आ + औ = औ → Vriddhi Sandhi."}},
+  {id:19, cat:3, catName:{hi:"वृद्धि संधि",en:"Vriddhi Sandhi"},
+   q:{hi:"'सदैव' का सही संधि-विच्छेद है:", en:"Correct Sandhi-Vichchhed of 'Sadaiv' is:"},
+   options:[{hi:"सदा + एव",en:"Sada + Ev"},{hi:"सद् + ऐव",en:"Sad + Aiv"},{hi:"स + दैव",en:"Sa + Daiv"},{hi:"सद + एव",en:"Sad + Ev"}],
+   ans:0, exp:{hi:"सदा + एव = सदैव। आ + ए = ऐ (वृद्धि संधि)।",en:"Sada + Ev = Sadaiv. आ + ए = ऐ (Vriddhi Sandhi)."}},
+  {id:20, cat:3, catName:{hi:"वृद्धि संधि",en:"Vriddhi Sandhi"},
+   q:{hi:"वृद्धि संधि का नियम है:", en:"Rule of Vriddhi Sandhi is:"},
+   options:[{hi:"अ/आ + इ/ई = ए",en:"अ/आ + इ/ई = ए"},{hi:"अ/आ + ए/ऐ = ऐ",en:"अ/आ + ए/ऐ = ऐ"},{hi:"इ/ई + अ = य",en:"इ/ई + अ = य"},{hi:"उ/ऊ + अ = व",en:"उ/ऊ + अ = व"}],
+   ans:1, exp:{hi:"अ/आ + ए/ऐ = ऐ, अ/आ + ओ/औ = औ → वृद्धि संधि।",en:"अ/आ + ए/ऐ = ऐ, अ/आ + ओ/औ = औ → Vriddhi Sandhi."}},
+  {id:21, cat:3, catName:{hi:"वृद्धि संधि",en:"Vriddhi Sandhi"},
+   q:{hi:"'परमौषध' का संधि-विच्छेद है:", en:"Sandhi-Vichchhed of 'Paramaushadh' is:"},
+   options:[{hi:"परम + औषध",en:"Param + Aushadh"},{hi:"परमो + षध",en:"Paramo + Shadh"},{hi:"पर + मौषध",en:"Par + Maushadh"},{hi:"परम + ओषध",en:"Param + Oshadh"}],
+   ans:0, exp:{hi:"परम + औषध = परमौषध। अ + औ = औ (वृद्धि संधि)।",en:"Param + Aushadh = Paramaushadh. अ + औ = औ (Vriddhi Sandhi)."}},
+  {id:22, cat:3, catName:{hi:"वृद्धि संधि",en:"Vriddhi Sandhi"},
+   q:{hi:"'नैतिक' में संधि है:", en:"Sandhi in 'Naitik' is:"},
+   options:[{hi:"गुण",en:"Guna"},{hi:"वृद्धि",en:"Vriddhi"},{hi:"यण",en:"Yan"},{hi:"दीर्घ",en:"Dirgha"}],
+   ans:1, exp:{hi:"नीति + इक = नैतिक। वृद्धि संधि का रूप।",en:"Niti + Ik = Naitik. Vriddhi Sandhi."}},
+  {id:23, cat:4, catName:{hi:"यण संधि",en:"Yan Sandhi"},
+   q:{hi:"'यदि' + 'अपि' = ?", en:"'Yadi' + 'Api' = ?"},
+   options:[{hi:"यद्यपि",en:"Yadyapi"},{hi:"यदिअपि",en:"Yadiapi"},{hi:"यदापि",en:"Yadapi"},{hi:"यदपि",en:"Yadapi"}],
+   ans:0, exp:{hi:"यदि + अपि = यद्यपि। इ + अ = य (यण संधि)।",en:"Yadi + Api = Yadyapi. इ + अ = य (Yan Sandhi)."}},
+  {id:24, cat:4, catName:{hi:"यण संधि",en:"Yan Sandhi"},
+   q:{hi:"'पर्यावरण' का संधि-विच्छेद है:", en:"Sandhi-Vichchhed of 'Paryavaran' is:"},
+   options:[{hi:"परि + आवरण",en:"Pari + Avaran"},{hi:"पर्य + आवरण",en:"Parya + Avaran"},{hi:"पर + यावरण",en:"Par + Yavaran"},{hi:"परी + आवरण",en:"Pari + Avaran"}],
+   ans:0, exp:{hi:"परि + आवरण = पर्यावरण। इ + आ = या (यण संधि)।",en:"Pari + Avaran = Paryavaran. इ + आ = या (Yan Sandhi)."}},
+  {id:25, cat:4, catName:{hi:"यण संधि",en:"Yan Sandhi"},
+   q:{hi:"'स्वागत' में कौन-सी संधि है?", en:"Which Sandhi is in 'Swagat'?"},
+   options:[{hi:"दीर्घ",en:"Dirgha"},{hi:"गुण",en:"Guna"},{hi:"यण",en:"Yan"},{hi:"वृद्धि",en:"Vriddhi"}],
+   ans:2, exp:{hi:"सु + आगत = स्वागत। उ + आ = वा (यण संधि)।",en:"Su + Agat = Swagat. उ + आ = वा (Yan Sandhi)."}},
+  {id:26, cat:4, catName:{hi:"यण संधि",en:"Yan Sandhi"},
+   q:{hi:"'नद्यूर्मि' का संधि-विच्छेद है:", en:"Sandhi-Vichchhed of 'Nadyurmi' is:"},
+   options:[{hi:"नदी + ऊर्मि",en:"Nadi + Urmi"},{hi:"नद्य + ऊर्मि",en:"Nadya + Urmi"},{hi:"नद + यूर्मि",en:"Nad + Yurmi"},{hi:"नदी + उर्मि",en:"Nadi + Urmi"}],
+   ans:0, exp:{hi:"नदी + ऊर्मि = नद्यूर्मि। ई + ऊ = यू (यण संधि)।",en:"Nadi + Urmi = Nadyurmi. ई + ऊ = यू (Yan Sandhi)."}},
+  {id:27, cat:4, catName:{hi:"यण संधि",en:"Yan Sandhi"},
+   q:{hi:"यण संधि का नियम है:", en:"Rule of Yan Sandhi is:"},
+   options:[{hi:"अ/आ + इ = ए",en:"अ/आ + इ = ए"},{hi:"इ/ई + अ/आ/उ/ऊ/ऋ = य",en:"इ/ई + अ/आ/उ/ऊ/ऋ = य"},{hi:"उ/ऊ + अ = ओ",en:"उ/ऊ + अ = ओ"},{hi:"ए + अ = अय",en:"ए + अ = अय"}],
+   ans:1, exp:{hi:"इ/ई के बाद भिन्न स्वर आने पर 'य' बनता है → यण संधि।",en:"After इ/ई different vowel → य → Yan Sandhi."}},
+  {id:28, cat:4, catName:{hi:"यण संधि",en:"Yan Sandhi"},
+   q:{hi:"'पितृऋण' का सही रूप है:", en:"Correct form of 'Pitru + Rin' is:"},
+   options:[{hi:"पितृण",en:"Pitrun"},{hi:"पितरृण",en:"Pitarun"},{hi:"पितृऋण",en:"Pitru-rin"},{hi:"पितर्रिण",en:"Pitarrin"}],
+   ans:0, exp:{hi:"पितृ + ऋण = पितृण। ऋ + ऋ = र् (यण संधि)।",en:"Pitru + Rin = Pitrun. ऋ + ऋ = र् (Yan Sandhi)."}},
+  {id:29, cat:4, catName:{hi:"यण संधि",en:"Yan Sandhi"},
+   q:{hi:"'अन्वेषण' में संधि है:", en:"Sandhi in 'Anveshan' is:"},
+   options:[{hi:"दीर्घ",en:"Dirgha"},{hi:"गुण",en:"Guna"},{hi:"यण",en:"Yan"},{hi:"व्यंजन",en:"Vyanjan"}],
+   ans:2, exp:{hi:"अनु + एषण = अन्वेषण। उ + ए = वे (यण संधि)।",en:"Anu + Eshan = Anveshan. उ + ए = वे (Yan Sandhi)."}},
+  {id:30, cat:4, catName:{hi:"यण संधि",en:"Yan Sandhi"},
+   q:{hi:"'मधु + अरि' = ?", en:"'Madhu' + 'Ari' = ?"},
+   options:[{hi:"मध्वरि",en:"Madhvari"},{hi:"मधुअरि",en:"Madhuari"},{hi:"मधोरि",en:"Madhori"},{hi:"मधुरि",en:"Madhuri"}],
+   ans:0, exp:{hi:"मधु + अरि = मध्वरि। उ + अ = व (यण संधि)।",en:"Madhu + Ari = Madhvari. उ + अ = व (Yan Sandhi)."}},
+  {id:31, cat:5, catName:{hi:"अयादि संधि",en:"Ayadi Sandhi"},
+   q:{hi:"'नयन' का संधि-विच्छेद है:", en:"Sandhi-Vichchhed of 'Nayan' is:"},
+   options:[{hi:"ने + अन",en:"Ne + An"},{hi:"नय + अन",en:"Nay + An"},{hi:"न + यन",en:"Na + Yan"},{hi:"नै + अन",en:"Nai + An"}],
+   ans:0, exp:{hi:"ने + अन = नयन। ए + अ = अय (अयादि संधि)।",en:"Ne + An = Nayan. ए + अ = अय (Ayadi Sandhi)."}},
+  {id:32, cat:5, catName:{hi:"अयादि संधि",en:"Ayadi Sandhi"},
+   q:{hi:"'गायक' में कौन-सी संधि है?", en:"Which Sandhi is in 'Gayak'?"},
+   options:[{hi:"यण",en:"Yan"},{hi:"अयादि",en:"Ayadi"},{hi:"गुण",en:"Guna"},{hi:"दीर्घ",en:"Dirgha"}],
+   ans:1, exp:{hi:"गै + अक = गायक। ऐ + अ = आय (अयादि संधि)।",en:"Gai + Ak = Gayak. ऐ + अ = आय (Ayadi Sandhi)."}},
+  {id:33, cat:5, catName:{hi:"अयादि संधि",en:"Ayadi Sandhi"},
+   q:{hi:"'पावक' का संधि-विच्छेद है:", en:"Sandhi-Vichchhed of 'Pawak' is:"},
+   options:[{hi:"पौ + अक",en:"Pau + Ak"},{hi:"पाव + क",en:"Pav + K"},{hi:"प + आवक",en:"Pa + Avak"},{hi:"पो + अक",en:"Po + Ak"}],
+   ans:0, exp:{hi:"पौ + अक = पावक। औ + अ = आव (अयादि संधि)।",en:"Pau + Ak = Pawak. औ + अ = आव (Ayadi Sandhi)."}},
+  {id:34, cat:5, catName:{hi:"अयादि संधि",en:"Ayadi Sandhi"},
+   q:{hi:"'शयन' में संधि है:", en:"Sandhi in 'Shayan' is:"},
+   options:[{hi:"दीर्घ",en:"Dirgha"},{hi:"गुण",en:"Guna"},{hi:"अयादि",en:"Ayadi"},{hi:"यण",en:"Yan"}],
+   ans:2, exp:{hi:"शे + अन = शयन। ए + अ = अय → अयादि संधि।",en:"She + An = Shayan. ए + अ = अय → Ayadi Sandhi."}},
+  {id:35, cat:5, catName:{hi:"अयादि संधि",en:"Ayadi Sandhi"},
+   q:{hi:"अयादि संधि का नियम है:", en:"Rule of Ayadi Sandhi is:"},
+   options:[{hi:"ए/ऐ + अ = अय/आय",en:"ए/ऐ + अ = अय/आय"},{hi:"अ + इ = ए",en:"अ + इ = ए"},{hi:"इ + अ = य",en:"इ + अ = य"},{hi:"उ + अ = व",en:"उ + अ = व"}],
+   ans:0, exp:{hi:"ए + स्वर = अय, ऐ + स्वर = आय → अयादि संधि।",en:"ए + vowel = अय, ऐ + vowel = आय → Ayadi Sandhi."}},
+  {id:36, cat:6, catName:{hi:"व्यंजन संधि",en:"Vyanjan Sandhi"},
+   q:{hi:"'सज्जन' का संधि-विच्छेद है:", en:"Sandhi-Vichchhed of 'Sajjan' is:"},
+   options:[{hi:"सत् + जन",en:"Sat + Jan"},{hi:"सज् + जन",en:"Saj + Jan"},{hi:"स + ज्जन",en:"Sa + Jjan"},{hi:"सद् + जन",en:"Sad + Jan"}],
+   ans:0, exp:{hi:"सत् + जन = सज्जन। त् + ज = ज्ज (व्यंजन संधि)।",en:"Sat + Jan = Sajjan. त् + ज = ज्ज (Vyanjan Sandhi)."}},
+  {id:37, cat:6, catName:{hi:"व्यंजन संधि",en:"Vyanjan Sandhi"},
+   q:{hi:"'जगन्नाथ' में कौन-सी संधि है?", en:"Which Sandhi is in 'Jagannath'?"},
+   options:[{hi:"स्वर",en:"Swar"},{hi:"व्यंजन",en:"Vyanjan"},{hi:"विसर्ग",en:"Visarg"},{hi:"यण",en:"Yan"}],
+   ans:1, exp:{hi:"जगत् + नाथ = जगन्नाथ। त् + न = न्न (व्यंजन संधि)।",en:"Jagat + Nath = Jagannath. त् + न = न्न (Vyanjan Sandhi)."}},
+  {id:38, cat:6, catName:{hi:"व्यंजन संधि",en:"Vyanjan Sandhi"},
+   q:{hi:"'उद्धार' का संधि-विच्छेद है:", en:"Sandhi-Vichchhed of 'Uddhar' is:"},
+   options:[{hi:"उत् + हार",en:"Ut + Har"},{hi:"उद् + धार",en:"Ud + Dhar"},{hi:"उ + धार",en:"U + Dhar"},{hi:"उत् + धार",en:"Ut + Dhar"}],
+   ans:0, exp:{hi:"उत् + हार = उद्धार। त् + ह = द्ध (व्यंजन संधि)।",en:"Ut + Har = Uddhar. त् + ह = द्ध (Vyanjan Sandhi)."}},
+  {id:39, cat:6, catName:{hi:"व्यंजन संधि",en:"Vyanjan Sandhi"},
+   q:{hi:"'तल्लीन' में संधि है:", en:"Sandhi in 'Tallin' is:"},
+   options:[{hi:"दीर्घ",en:"Dirgha"},{hi:"व्यंजन",en:"Vyanjan"},{hi:"विसर्ग",en:"Visarg"},{hi:"गुण",en:"Guna"}],
+   ans:1, exp:{hi:"तत् + लीन = तल्लीन। त् + ल = ल्ल (व्यंजन संधि)।",en:"Tat + Lin = Tallin. त् + ल = ल्ल (Vyanjan Sandhi)."}},
+  {id:40, cat:6, catName:{hi:"व्यंजन संधि",en:"Vyanjan Sandhi"},
+   q:{hi:"'उल्लेख' का संधि-विच्छेद है:", en:"Sandhi-Vichchhed of 'Ullekh' is:"},
+   options:[{hi:"उत् + लेख",en:"Ut + Lekh"},{hi:"उल् + लेख",en:"Ul + Lekh"},{hi:"उ + लेख",en:"U + Lekh"},{hi:"उत् + लेक",en:"Ut + Lek"}],
+   ans:0, exp:{hi:"उत् + लेख = उल्लेख। त् + ल = ल्ल (व्यंजन संधि)।",en:"Ut + Lekh = Ullekh. त् + ल = ल्ल (Vyanjan Sandhi)."}},
+  {id:41, cat:6, catName:{hi:"व्यंजन संधि",en:"Vyanjan Sandhi"},
+   q:{hi:"'सदानंद' का संधि-विच्छेद है:", en:"Sandhi-Vichchhed of 'Sadanand' is:"},
+   options:[{hi:"सत् + आनंद",en:"Sat + Anand"},{hi:"सदा + नंद",en:"Sada + Nand"},{hi:"सद् + आनंद",en:"Sad + Anand"},{hi:"स + दानंद",en:"Sa + Danand"}],
+   ans:0, exp:{hi:"सत् + आनंद = सदानंद। त् + आ = द् (व्यंजन संधि)।",en:"Sat + Anand = Sadanand. त् + आ = द् (Vyanjan Sandhi)."}},
+  {id:42, cat:6, catName:{hi:"व्यंजन संधि",en:"Vyanjan Sandhi"},
+   q:{hi:"'वागीश' में संधि है:", en:"Sandhi in 'Vagish' is:"},
+   options:[{hi:"स्वर",en:"Swar"},{hi:"व्यंजन",en:"Vyanjan"},{hi:"विसर्ग",en:"Visarg"},{hi:"यण",en:"Yan"}],
+   ans:1, exp:{hi:"वाक् + ईश = वागीश। क् + ई = ग् (व्यंजन संधि)।",en:"Vak + Ish = Vagish. क् + ई = ग् (Vyanjan Sandhi)."}},
+  {id:43, cat:6, catName:{hi:"व्यंजन संधि",en:"Vyanjan Sandhi"},
+   q:{hi:"'षडानन' का संधि-विच्छेद है:", en:"Sandhi-Vichchhed of 'Shadanan' is:"},
+   options:[{hi:"षट् + आनन",en:"Shat + Anan"},{hi:"षड् + आनन",en:"Shad + Anan"},{hi:"ष + डानन",en:"Sha + Danan"},{hi:"षट + आनन",en:"Shat + Anan"}],
+   ans:0, exp:{hi:"षट् + आनन = षडानन। ट् + आ = ड् (व्यंजन संधि)।",en:"Shat + Anan = Shadanan. ट् + आ = ड् (Vyanjan Sandhi)."}},
+  {id:44, cat:7, catName:{hi:"विसर्ग संधि",en:"Visarg Sandhi"},
+   q:{hi:"'निश्चल' का संधि-विच्छेद है:", en:"Sandhi-Vichchhed of 'Nishchal' is:"},
+   options:[{hi:"निः + चल",en:"Nih + Chal"},{hi:"निश् + चल",en:"Nish + Chal"},{hi:"नि + श्चल",en:"Ni + Schal"},{hi:"निस् + चल",en:"Nis + Chal"}],
+   ans:0, exp:{hi:"निः + चल = निश्चल। विसर्ग + च = श् (विसर्ग संधि)।",en:"Nih + Chal = Nishchal. Visarg + च = श् (Visarg Sandhi)."}},
+  {id:45, cat:7, catName:{hi:"विसर्ग संधि",en:"Visarg Sandhi"},
+   q:{hi:"'दुःख' में कौन-सी संधि है?", en:"Which Sandhi is in 'Dukh'?"},
+   options:[{hi:"स्वर",en:"Swar"},{hi:"व्यंजन",en:"Vyanjan"},{hi:"विसर्ग",en:"Visarg"},{hi:"यण",en:"Yan"}],
+   ans:2, exp:{hi:"दुः + ख = दुःख। विसर्ग संधि।",en:"Duh + Kh = Dukh. Visarg Sandhi."}},
+  {id:46, cat:7, catName:{hi:"विसर्ग संधि",en:"Visarg Sandhi"},
+   q:{hi:"'अतएव' का सही संधि-विच्छेद है:", en:"Correct Sandhi-Vichchhed of 'Ataev' is:"},
+   options:[{hi:"अतः + एव",en:"Atah + Ev"},{hi:"अत + एव",en:"At + Ev"},{hi:"अ + तएव",en:"A + Taev"},{hi:"अतः + ऐव",en:"Atah + Aiv"}],
+   ans:0, exp:{hi:"अतः + एव = अतएव। विसर्ग का लोप (विसर्ग संधि)।",en:"Atah + Ev = Ataev. Visarg Sandhi."}},
+  {id:47, cat:7, catName:{hi:"विसर्ग संधि",en:"Visarg Sandhi"},
+   q:{hi:"'निष्कपट' का संधि-विच्छेद है:", en:"Sandhi-Vichchhed of 'Nishkapat' is:"},
+   options:[{hi:"निः + कपट",en:"Nih + Kapat"},{hi:"निष् + कपट",en:"Nish + Kapat"},{hi:"नि + ष्कपट",en:"Ni + Shkapat"},{hi:"निस + कपट",en:"Nis + Kapat"}],
+   ans:0, exp:{hi:"निः + कपट = निष्कपट। विसर्ग + क = ष् (विसर्ग संधि)।",en:"Nih + Kapat = Nishkapat. Visarg + क = ष् (Visarg Sandhi)."}},
+  {id:48, cat:7, catName:{hi:"विसर्ग संधि",en:"Visarg Sandhi"},
+   q:{hi:"'मनश्चिकित्सा' में संधि है:", en:"Sandhi in 'Manaschikitsa' is:"},
+   options:[{hi:"दीर्घ",en:"Dirgha"},{hi:"गुण",en:"Guna"},{hi:"विसर्ग",en:"Visarg"},{hi:"यण",en:"Yan"}],
+   ans:2, exp:{hi:"मनः + चिकित्सा = मनश्चिकित्सा। विसर्ग + च = श् (विसर्ग संधि)।",en:"Manah + Chikitsa = Manaschikitsa. Visarg + च = श् (Visarg Sandhi)."}},
+  {id:49, cat:7, catName:{hi:"विसर्ग संधि",en:"Visarg Sandhi"},
+   q:{hi:"'नमस्ते' का संधि-विच्छेद है:", en:"Sandhi-Vichchhed of 'Namaste' is:"},
+   options:[{hi:"नमः + ते",en:"Namah + Te"},{hi:"नमस् + ते",en:"Namas + Te"},{hi:"नम + स्ते",en:"Nam + Ste"},{hi:"न + मस्ते",en:"Na + Maste"}],
+   ans:0, exp:{hi:"नमः + ते = नमस्ते। विसर्ग + त = स् (विसर्ग संधि)।",en:"Namah + Te = Namaste. Visarg + त = स् (Visarg Sandhi)."}},
+  {id:50, cat:7, catName:{hi:"विसर्ग संधि",en:"Visarg Sandhi"},
+   q:{hi:"'निर्गुण' का संधि-विच्छेद है:", en:"Sandhi-Vichchhed of 'Nirgun' is:"},
+   options:[{hi:"निः + गुण",en:"Nih + Gun"},{hi:"निर् + गुण",en:"Nir + Gun"},{hi:"नि + र्गुण",en:"Ni + Rgun"},{hi:"निस + गुण",en:"Nis + Gun"}],
+   ans:0, exp:{hi:"निः + गुण = निर्गुण। विसर्ग + ग = र् (विसर्ग संधि)।",en:"Nih + Gun = Nirgun. Visarg + ग = र् (Visarg Sandhi)."}}
+];
+
+/* ===================== APP LOGIC ===================== */
+let currentLang = 'hi';
+let selectedQs = [];
+let userAnswers = {};
+let attempted = 0, right = 0, wrong = 0, score = 0;
+let candidateName = '';
+let selectedCategory = 'all';
+
+function toggleLang(){
+  currentLang = currentLang === 'hi' ? 'en' : 'hi';
+  document.getElementById('langBtn').textContent = currentLang === 'hi' ? 'English' : 'हिंदी';
+  updateAllTexts();
+  if(selectedQs.length) renderQuestions();
+}
+
+function updateAllTexts(){
+  document.querySelectorAll('[data-hi]').forEach(el=>{
+    el.textContent = el.getAttribute('data-'+currentLang);
+  });
+}
+
+function startTest(){
+  candidateName = document.getElementById('candidateName').value.trim() || (currentLang==='hi'?'अभ्यर्थी':'Candidate');
+  selectedCategory = document.getElementById('categorySelect').value;
+  
+  if(selectedCategory === 'all'){
+    selectedQs = [...rawData];
+  } else {
+    selectedQs = rawData.filter(q => q.cat == selectedCategory);
+  }
+  
+  userAnswers = {};
+  attempted = right = wrong = score = 0;
+  updateTracker();
+  
+  document.getElementById('startScreen').classList.add('hidden');
+  document.getElementById('liveTracker').style.display = 'flex';
+  document.getElementById('questionsArea').classList.remove('hidden');
+  document.getElementById('submitArea').classList.remove('hidden');
+  
+  renderQuestions();
+  window.scrollTo(0,0);
+}
+
+function renderQuestions(){
+  const area = document.getElementById('questionsArea');
+  area.innerHTML = '';
+  
+  selectedQs.forEach((q, idx)=>{
+    const card = document.createElement('div');
+    card.className = 'card question-card';
+    card.id = 'q'+q.id;
+    
+    let optsHtml = '';
+    q.options.forEach((opt, i)=>{
+      const letter = String.fromCharCode(65+i);
+      const isSelected = userAnswers[q.id] === i;
+      let cls = 'option';
+      if(isSelected){
+        if(i === q.ans) cls += ' correct';
+        else cls += ' wrong';
+      }
+      if(userAnswers[q.id] !== undefined) cls += ' disabled';
+      
+      optsHtml += `<div class="${cls}" onclick="selectAnswer(${q.id},${i})" data-opt="${i}">
+        <strong>${letter}.</strong> <span>${opt[currentLang]}</span>
+      </div>`;
+    });
+    
+    const expShow = userAnswers[q.id] !== undefined ? 'show' : '';
+    
+    card.innerHTML = `
+      <div class="q-num">Q.${idx+1} | ${q.catName[currentLang]}</div>
+      <div class="q-text">${q.q[currentLang]}</div>
+      <div class="options">${optsHtml}</div>
+      <div class="explanation ${expShow}" id="exp${q.id}">
+        <strong>${currentLang==='hi'?'व्याख्या:':'Explanation:'}</strong> ${q.exp[currentLang]}
+      </div>
+    `;
+    area.appendChild(card);
+  });
+}
+
+function selectAnswer(qid, optIdx){
+  if(userAnswers[qid] !== undefined) return;
+  
+  const q = selectedQs.find(x=>x.id===qid);
+  userAnswers[qid] = optIdx;
+  attempted++;
+  
+  if(optIdx === q.ans){
+    right++;
+    score += 1;
+  } else {
+    wrong++;
+    score -= 0.25;
+  }
+  
+  updateTracker();
+  renderQuestions();
+}
+
+function updateTracker(){
+  document.getElementById('tAttempted').textContent = (currentLang==='hi'?'प्रयास: ':'Attempted: ') + attempted;
+  document.getElementById('tRight').textContent = (currentLang==='hi'?'सही: ':'Right: ') + right;
+  document.getElementById('tWrong').textContent = (currentLang==='hi'?'गलत: ':'Wrong: ') + wrong;
+  document.getElementById('tScore').textContent = (currentLang==='hi'?'अंक: ':'Score: ') + score.toFixed(2);
+}
+
+function confirmSubmit(){
+  if(attempted < selectedQs.length){
+    document.getElementById('confirmMsg').textContent = currentLang==='hi' 
+      ? `आपने ${attempted}/${selectedQs.length} प्रश्न हल किए हैं। फिर भी जमा करें?`
+      : `You attempted ${attempted}/${selectedQs.length} questions. Submit anyway?`;
+    document.getElementById('confirmPopup').classList.remove('hidden');
+  } else {
+    submitTest();
+  }
+}
+
+function closePopup(){
+  document.getElementById('confirmPopup').classList.add('hidden');
+}
+
+function submitTest(){
+  closePopup();
+  document.getElementById('questionsArea').classList.add('hidden');
+  document.getElementById('submitArea').classList.add('hidden');
+  document.getElementById('liveTracker').style.display = 'none';
+  document.getElementById('resultScreen').style.display = 'block';
+  
+  const total = selectedQs.length;
+  const percent = total ? ((right/total)*100).toFixed(1) : 0;
+  
+  document.getElementById('finalScore').textContent = score.toFixed(2);
+  document.getElementById('resultName').textContent = candidateName;
+  document.getElementById('resultSummary').textContent = currentLang==='hi'
+    ? `आपने ${total} प्रश्नों में से ${right} सही किए।`
+    : `You got ${right} out of ${total} correct.`;
+  
+  document.getElementById('rTotal').textContent = total;
+  document.getElementById('rRight').textContent = right;
+  document.getElementById('rWrong').textContent = wrong;
+  document.getElementById('rPercent').textContent = percent + '%';
+  
+  const cats = {};
+  selectedQs.forEach(q=>{
+    if(!cats[q.cat]) cats[q.cat] = {name:q.catName, total:0, right:0, wrong:0};
+    cats[q.cat].total++;
+    if(userAnswers[q.id] !== undefined){
+      if(userAnswers[q.id] === q.ans) cats[q.cat].right++;
+      else cats[q.cat].wrong++;
+    }
+  });
+  
+  let tbody = '';
+  Object.keys(cats).sort().forEach(c=>{
+    const cat = cats[c];
+    const p = cat.total ? (cat.right/cat.total)*100 : 0;
+    let status, statusClass;
+    if(p>=95){status=currentLang==='hi'?'✨ पूर्ण दक्षता':'✨ Mastery'; statusClass='status-mastery';}
+    else if(p>=85){status=currentLang==='hi'?'🟢 उत्कृष्ट':'🟢 Excellent'; statusClass='status-excellent';}
+    else if(p>=70){status=currentLang==='hi'?'🔵 अच्छा':'🔵 Good'; statusClass='status-good';}
+    else if(p>=50){status=currentLang==='hi'?'🟠 औसत':'🟠 Average'; statusClass='status-average';}
+    else{status=currentLang==='hi'?'🔴 सुधार आवश्यक':'🔴 Needs Revision'; statusClass='status-needs';}
+    
+    tbody += `<tr>
+      <td>${cat.name[currentLang]}</td>
+      <td>${cat.total}</td>
+      <td>${cat.right}</td>
+      <td>${cat.wrong}</td>
+      <td class="${statusClass}">${status}</td>
+    </tr>`;
+  });
+  document.getElementById('perfBody').innerHTML = tbody;
+  
+  // ✅ SAVE TO LEADERBOARD
+  saveScoreToDB({
+    name: candidateName,
+    score: score,
+    right: right,
+    wrong: wrong,
+    total: total,
+    percent: parseFloat(percent),
+    category: selectedCategory
+  });
+  
+  window.scrollTo(0,0);
+}
+
+/* ===================== LEADERBOARD API ===================== */
+async function saveScoreToDB(data) {
+  try {
+    const res = await fetch('/api/save-score', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    const result = await res.json();
+    if (result.success) {
+      console.log('✅ Score saved to leaderboard');
+      showToast('🏆 आपका स्कोर लीडरबोर्ड में सेव हो गया!');
+    } else {
+      console.error('Save failed:', result.error);
+    }
+  } catch (err) {
+    console.error('Save failed:', err);
+  }
+}
+
+async function showLeaderboard() {
+  document.getElementById('leaderboardPopup').classList.remove('hidden');
+  await loadLeaderboard();
+}
+
+function closeLeaderboard() {
+  document.getElementById('leaderboardPopup').classList.add('hidden');
+}
+
+async function loadLeaderboard() {
+  const cat = document.getElementById('lbCategory').value;
+  const period = document.getElementById('lbPeriod').value;
+  const tbody = document.getElementById('lbBody');
+  tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:20px">⏳ Loading...</td></tr>';
+
+  try {
+    const res = await fetch(`/api/leaderboard?category=${cat}&period=${period}&limit=100`);
+    const data = await res.json();
+
+    if (!data.success) throw new Error(data.error || 'Failed');
+
+    document.getElementById('lbStats').innerHTML = `
+      <div class="stat-box"><div class="num">${data.stats.totalStudents}</div><div class="label">Total Students</div></div>
+      <div class="stat-box"><div class="num" style="color:var(--success)">${data.stats.topScore}</div><div class="label">Top Score</div></div>
+      <div class="stat-box"><div class="num" style="color:var(--mastery)">${data.stats.avgScore}</div><div class="label">Avg Score</div></div>
+    `;
+
+    if (!data.leaderboard.length) {
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:20px;color:var(--muted)">कोई डेटा नहीं मिला / No data found</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = data.leaderboard.map(s => {
+      let medal = s.rank === 1 ? '🥇' : s.rank === 2 ? '🥈' : s.rank === 3 ? '🥉' : '#' + s.rank;
+      let rowStyle = s.rank <= 3 ? 'background:#fffbeb;font-weight:600' : '';
+      return `<tr style="${rowStyle}">
+        <td>${medal}</td>
+        <td>${s.name}</td>
+        <td><strong>${s.score}</strong></td>
+        <td style="color:var(--success)">${s.right}</td>
+        <td style="color:var(--danger)">${s.wrong}</td>
+        <td>${s.percent}%</td>
+        <td style="font-size:.75rem">${s.date || '-'}</td>
+      </tr>`;
+    }).join('');
+  } catch (err) {
+    console.error(err);
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:20px;color:var(--danger)">❌ Error: ${err.message}</td></tr>`;
+  }
+}
+
+function showToast(msg) {
+  const toast = document.createElement('div');
+  toast.textContent = msg;
+  toast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a56db;color:#fff;padding:14px 28px;border-radius:12px;z-index:9999;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.3);animation:slideUp .3s';
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3500);
+}
+
+/* ===================== PDF DOWNLOAD ===================== */
+function downloadPDF(){
+  let html = `
+    <html><head><meta charset="UTF-8"><title>Sandhi Mock Test - UPSSSC_WALA_Study</title>
+    <style>
+      body{font-family:Arial,sans-serif;padding:20px;color:#111;line-height:1.5}
+      .header{text-align:center;border-bottom:3px solid #1a56db;padding-bottom:15px;margin-bottom:20px}
+      .header h1{color:#1a56db;margin:0;font-size:22px}
+      .header p{margin:4px 0;font-size:13px}
+      .meta{background:#f1f5f9;padding:12px;border-radius:8px;margin-bottom:20px;font-size:14px}
+      .q{margin-bottom:22px;page-break-inside:avoid;border:1px solid #e2e8f0;padding:12px;border-radius:8px}
+      .q-num{font-weight:bold;color:#1a56db;font-size:13px}
+      .q-text{font-weight:600;margin:6px 0}
+      .opt{margin:3px 0 3px 15px}
+      .ans{color:#059669;font-weight:bold;margin-top:6px}
+      .exp{background:#f0fdf4;padding:8px;border-radius:6px;font-size:13px;margin-top:6px}
+      .footer{text-align:center;margin-top:30px;padding-top:15px;border-top:2px solid #1a56db;font-size:12px}
+    </style></head><body>
+    <div class="header">
+      <h1>UPSSSC_WALA_Study</h1>
+      <p><strong>सामान्य हिंदी – संधि Mock Test</strong></p>
+      <p>Prepared by: <strong>Vishal Pandey</strong> | Telegram: https://t.me/UPSSSC_WALA_Study</p>
+    </div>
+    <div class="meta">
+      <strong>अभ्यर्थी:</strong> ${candidateName} &nbsp;|&nbsp;
+      <strong>अंक:</strong> ${score.toFixed(2)} &nbsp;|&nbsp;
+      <strong>सही:</strong> ${right} &nbsp;|&nbsp;
+      <strong>गलत:</strong> ${wrong} &nbsp;|&nbsp;
+      <strong>कुल:</strong> ${selectedQs.length}
+    </div>
+  `;
+  
+  selectedQs.forEach((q,i)=>{
+    const userAns = userAnswers[q.id];
+    html += `<div class="q">
+      <div class="q-num">प्रश्न ${i+1} | ${q.catName.hi}</div>
+      <div class="q-text">${q.q.hi}</div>`;
+    q.options.forEach((o,j)=>{
+      const mark = (j===q.ans) ? ' ✓' : (userAns===j ? ' ✗' : '');
+      html += `<div class="opt">${String.fromCharCode(65+j)}. ${o.hi}${mark}</div>`;
+    });
+    html += `<div class="ans">सही उत्तर: ${String.fromCharCode(65+q.ans)}. ${q.options[q.ans].hi}</div>
+      <div class="exp"><strong>व्याख्या:</strong> ${q.exp.hi}</div>
+    </div>`;
+  });
+  
+  html += `
+    <div class="footer">
+      <p><strong>UPSSSC_WALA_Study</strong> | Vishal Pandey</p>
+      <p>Telegram Channel: https://t.me/UPSSSC_WALA_Study</p>
+      <p>© 2026 | All Rights Reserved</p>
+    </div>
+    </body></html>
+  `;
+  
+  const win = window.open('','_blank');
+  win.document.write(html);
+  win.document.close();
+  setTimeout(()=>{ win.print(); }, 500);
+}
+
+// Close leaderboard on outside click
+document.getElementById('leaderboardPopup')?.addEventListener('click', (e) => {
+  if (e.target.id === 'leaderboardPopup') closeLeaderboard();
+});
+
+// Init
+updateAllTexts();
+</script>
+</body>
+</html>
