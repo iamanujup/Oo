@@ -1,0 +1,14 @@
+{
+  "name": "upsssc-wala-study",
+  "version": "1.0.0",
+  "private": true,
+  "description": "UPSSSC_WALA_Study - Sandhi Mock Test with Live Leaderboard",
+  "author": "Vishal Pandey",
+  "license": "MIT",
+  "dependencies": {
+    "mongodb": "^6.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
